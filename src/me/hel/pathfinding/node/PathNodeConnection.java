@@ -16,7 +16,7 @@ public class PathNodeConnection implements Visitable {
 
         this.start = start;
         this.end = end;
-        this.cost = evaluator.evaluate(start, end);
+        this.cost = evaluator.evaluateCost(start, end);
     }
 
     public IPathNode getStart(){

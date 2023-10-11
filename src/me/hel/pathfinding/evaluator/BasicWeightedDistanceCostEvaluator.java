@@ -14,7 +14,7 @@ public class BasicWeightedDistanceCostEvaluator extends AbstractCostEvaluator {
     }
 
     @Override
-    public double evaluate(IPathNode node1, IPathNode node2) {
+    public double evaluateCost(IPathNode node1, IPathNode node2) {
 
         Point2D location1 = node1.getNodeLocation();
         Point2D location2 = node2.getNodeLocation();

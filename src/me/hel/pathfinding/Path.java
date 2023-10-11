@@ -16,7 +16,6 @@ public class Path {
         this.nodes = nodes;
         start = nodes.get(0).getParentNode();
         end = nodes.get(nodes.size() - 1);
-        System.out.println("Path generated, end point is " + end.getNodeLocation());
         cost = end.getCost();
         this.executionTime = executionTime;
     }

@@ -27,7 +27,7 @@ public class GUI extends JFrame implements MouseWheelListener {
     private static double zoom = 1.0;
 
     private JPanel content;
-    private Optional<Path> lastPath = Optional.empty();
+    private Optional<Path> optLastPath = Optional.empty();
 
     private final PathFinder pathFinder;
 
@@ -154,7 +154,7 @@ public class GUI extends JFrame implements MouseWheelListener {
         content.revalidate();
     }
 
-    private class BlockedCell extends JPanel {
+    private static class BlockedCell extends JPanel {
         public BlockedCell(){
             setBackground(Color.BLACK);
             setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -189,9 +189,9 @@ public class GUI extends JFrame implements MouseWheelListener {
         }
 
         private void update(){
-            if(lastPath.isPresent()){
+            if(optLastPath.isPresent()){
 
-                Path path = lastPath.get();
+                Path path = optLastPath.get();
                 if(path.getStart().equals(this)){
                     setBackground(Color.GREEN);
                 }else if(path.getEnd().equals(this)){
@@ -255,7 +255,7 @@ public class GUI extends JFrame implements MouseWheelListener {
             if(start == null){
                 System.out.println("Set startpoint!");
                 start = this;
-                lastPath = Optional.empty();
+                optLastPath = Optional.empty();
                 // update all
                 pathFinder.getNodes().forEach( i -> {
                     if(i instanceof WalkableCell){
@@ -264,10 +264,10 @@ public class GUI extends JFrame implements MouseWheelListener {
                     }
                 });
             }else {
-                lastPath = pathFinder.generatePath(start, this);
-                if(lastPath.isPresent()){
-                    Path path = lastPath.get();
-                    System.out.println("Generated path in " + path.getExecutionTime());
+                optLastPath = pathFinder.generatePath(start, this);
+                if(optLastPath.isPresent()){
+                    Path path = optLastPath.get();
+                    System.out.println("Generated path in " + path.getExecutionTime() + "ms");
                     path.getNodes().stream().filter(i -> !i.equals(path.getEnd()) && !i.equals(path.getStart())).forEach(i -> {
                         if(i instanceof WalkableCell){
                             WalkableCell walkableCell = (WalkableCell) i;
